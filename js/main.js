@@ -90,6 +90,35 @@ function showQuestions(semester, subject, sectionName) {
         return;
     }
 
+    /* ===== NÚT HIỆN / ẨN TẤT CẢ ===== */
+
+    let showAll = false;
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.innerText = "Hiện tất cả đáp án";
+
+    toggleBtn.onclick = () => {
+
+        const answers =
+            document.querySelectorAll(".answer");
+
+        showAll = !showAll;
+
+        answers.forEach(a => {
+            a.style.display =
+                showAll ? "block" : "none";
+        });
+
+        toggleBtn.innerText =
+            showAll
+            ? "Ẩn tất cả đáp án"
+            : "Hiện tất cả đáp án";
+    };
+
+    subjectList.appendChild(toggleBtn);
+
+    /* ===== RENDER CÂU HỎI ===== */
+
     questions.forEach((item, index) => {
 
         const box = document.createElement("div");
@@ -103,6 +132,7 @@ function showQuestions(semester, subject, sectionName) {
         question.style.cursor = "pointer";
 
         const answer = document.createElement("p");
+        answer.className = "answer";
 
         answer.innerHTML =
             `<em>Trả lời:</em> ${item.answer}`;
@@ -124,7 +154,9 @@ function showQuestions(semester, subject, sectionName) {
         subjectList.appendChild(box);
 
     });
+
 }
+
 
 /* ========================
    QUIZ SYSTEM
@@ -289,5 +321,6 @@ backBtn.onclick = () => {
 
     subjectSection.style.display = "none";
     semesterSection.style.display = "block";
+
 
 };
